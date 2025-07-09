@@ -1,0 +1,23 @@
+{% extends "polls/base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/polls/css/style.css?v=1">
+<div class="container">
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}<p class="error">{{ error_message }}</p>{% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+        {% csrf_token %}
+        {% for choice in question.choice_set.all %}
+        <div class="vote-option">
+            <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label>
+        </div>
+        {% endfor %}
+        <input type="submit" value="Голосовать" class="submit-btn">
+    </form>
+
+    <a href="{% url 'polls:index' %}" class="back-link">← Назад к списку опросов</a>
+</div>
+{% endblock %}

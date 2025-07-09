@@ -1,0 +1,17 @@
+{% load static %}
+<head>
+    <title>Голосования</title>
+    <link rel="stylesheet" href="/static/polls/css/style.css?v=1">
+</head>
+<body>
+    <h1>Список голосований</h1>
+    {% if questions %}
+    <ul>
+        {% for question in questions %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Нет доступных голосований.</p>
+    {% endif %}
+</body>

@@ -1,0 +1,20 @@
+{% extends "polls/base.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/polls/css/style.css?v=1">
+<div class="container">
+    <h1>Результаты: {{ question.question_text }}</h1>
+
+    <ul class="results-list">
+        {% for choice in question.choice_set.all %}
+        <li>
+            {{ choice.choice_text }} -
+            <span class="vote-count">{{ choice.votes }} голос{{ choice.votes|pluralize:"ов" }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:detail' question.id %}" class="vote-again">Проголосовать снова</a>
+    <a href="{% url 'polls:index' %}" class="back-link">← К списку опросов</a>
+</div>
+{% endblock %}
